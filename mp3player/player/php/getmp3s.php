@@ -3,23 +3,25 @@
 	<p class="no-html5">Your browser doesn\'t support HTML5 audio</p>
 </audio>
 
-<div id="mp3Player-buttons-container">
-	<button id="mp3Player-play" class="mp3controls">Play</button>
-	<button id="mp3Player-pause" class="mp3controls display-off">Pause</button>
-	<button id="mp3Player-next" class="mp3controls disabled">Next</button>
-	<button id="mp3Player-prev" class="mp3controls disabled">Prev</button>
-</div>
+<div id="mp3Player-controls" class="mp3Player-group">
+	<div id="mp3Player-buttons-container" class="mp3Player-group">
+		<button id="mp3Player-prev" class="mp3controls disabled">Prev</button>
+		<button id="mp3Player-play" class="mp3controls">Play</button>
+		<button id="mp3Player-pause" class="mp3controls display-off">Pause</button>
+		<button id="mp3Player-next" class="mp3controls disabled">Next</button>
+	</div>
 
-<div id="mp3Player-progress-container">
-	<span id="mp3Player-currentTime"></span>
-	<div id="mp3Player-progress"></div>
-	<span id="mp3Player-remainingTime"></span>
-</div>
+	<div id="mp3Player-progress-container" class="mp3Player-group">
+		<span id="mp3Player-currentTime"></span>
+		<div id="mp3Player-progress"></div>
+		<span id="mp3Player-remainingTime"></span>
+	</div>
 
-<div id="mp3Player-volume-container" class="group">
-	<span id="mp3Player-min-volume"></span>
-	<div id="mp3Player-volume"></div>
-	<span id="mp3Player-max-volume"></span>
+	<div id="mp3Player-volume-container" class="mp3Player-group">
+		<span id="mp3Player-min-volume"></span>
+		<div id="mp3Player-volume"></div>
+		<span id="mp3Player-max-volume"></span>
+	</div>
 </div>
 
 <table class="sortable" id="mp3Player-table">

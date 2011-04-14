@@ -1,5 +1,6 @@
 span#mp3Player-min-volume {
 	display:block;
+	float:left;
 	width:27px;
 	height:23px;
 	background: url(../images/icons.png) no-repeat -57px 0px;
@@ -7,6 +8,7 @@ span#mp3Player-min-volume {
 
 span#mp3Player-max-volume {
 	display:block;
+	float:right;
 	width:24px;
 	height:23px;
 	background: url(../images/icons.png) no-repeat -33px 0px;
@@ -14,6 +16,7 @@ span#mp3Player-max-volume {
 
 button#mp3Player-play {
 	display:block;
+	float:left;
 	border:none;
 	padding:0;
 	text-indent:-9999px;
@@ -24,6 +27,7 @@ button#mp3Player-play {
 
 button#mp3Player-pause {
 	display:block;
+	float:left;
 	border:none;
 	padding:0;
 	text-indent:-9999px;
@@ -34,6 +38,7 @@ button#mp3Player-pause {
 
 button#mp3Player-next {
 	display:block;
+	float:left;
 	border:none;
 	padding:0;
 	text-indent:-9999px;
@@ -44,6 +49,7 @@ button#mp3Player-next {
 
 button#mp3Player-prev {
 	display:block;
+	float:left;
 	border:none;
 	padding:0;
 	text-indent:-9999px;
@@ -109,3 +115,142 @@ button#mp3Player-prev.disabled {
 .display-off {
 	display:none !important;
 }
+
+.mp3Player-group:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+* html .mp3Player-group             { zoom: 1; } /* IE6 */
+*:first-child+html .mp3Player-group { zoom: 1; } /* IE7 */
+
+
+
+
+
+
+/* Audio Player */
+
+.source {display:none;}
+
+div#mp3Player-controls {
+	width:764px; 
+	margin:30px 0;
+	border: 2px solid #CDBDAE;
+	background-color: rgba(255,255,255,0.3);
+	}
+
+/* Table of Songs */
+table#song-list {
+	border:2px solid #CDBDAE;
+	border-collapse: collapse;
+}
+	
+table#song-list tr.category-music {
+	cursor:pointer;
+}
+	
+table#song-list tr.category-music:hover {
+	background-color:#feffba;
+	
+}
+	
+table#song-list tr.selected-song {
+	background-color: rgba(0,0,0,0.7); 
+	color:#F0F2EB;
+}
+	
+table#song-list tr.selected-song  a {
+	color:#fff;
+}
+	
+table#song-list tr.selected-song:hover {
+	background-color: rgba(0,0,0,0.7); 
+	cursor: default;
+}
+	
+table#song-list td {
+	padding:0 5px;
+}
+	
+table#song-list th {
+	padding: 4px 8px;
+	background: #76756B; 
+	color:#fff;
+}
+	
+tr.category-music {
+	background-color: rgba(255, 255, 255, 0.3);
+}
+	
+tr.category-music:nth-child(2n) {
+	background-color: rgba(255, 255, 255, 0.7);
+}
+	
+td.song-name {
+	width:150px;
+	font-weight: bold;
+}
+	
+td.song-name h2 {
+	font-size: 13px;
+	font-weight: bold;
+	font-family:  Georgia, Palatino, Palatino Linotype, Times, Times New Roman, serif;
+}
+	
+td.song-tags {
+	width:200px;
+	color: #999;
+}
+
+/* Track Display */
+div#mp3Player-progress-container {
+	width:384px; 
+	position:relative; 
+	float:left;
+	margin: 8px 16px 8px 0;
+	padding: 8px;
+	border: 1px solid #ece4de;
+}
+	
+span#mp3Player-currentTime {
+	position: absolute; 
+	bottom: 7px;
+	left: 8px;
+}
+	
+span#mp3Player-remainingTime {
+	position: absolute; 
+	bottom: 7px;
+	right: 8px;
+}
+	
+div#mp3Player-progress {
+	width:260px; 
+	margin: 0 auto;
+}
+
+
+/* Volume Container */
+div#mp3Player-volume-container { 
+	float:right;  
+	margin:28px 16px 0 0;
+}
+
+div#mp3Player-volume {
+	width:122px; 
+	float:left;
+	margin-top: 2px;
+}
+
+
+/* Button Container */
+div#mp3Player-buttons-container {
+	float:left; 
+	margin:22px 24px 0 16px;
+}
+
+
