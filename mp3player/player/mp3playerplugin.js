@@ -730,4 +730,6 @@ jQuery(document).ready(function($){
 			
 		}
 	});
+	
+	$('#mp3Player').html('<span id="mp3Player-loading">Loading...</span>');
 });

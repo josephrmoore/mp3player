@@ -144,64 +144,56 @@ div#mp3Player-controls {
 	}
 
 /* Table of Songs */
-table#song-list {
+table#mp3Player-table {
 	border:2px solid #CDBDAE;
-	border-collapse: collapse;
 }
 	
-table#song-list tr.category-music {
+table#mp3Player-table tr {
 	cursor:pointer;
 }
 	
-table#song-list tr.category-music:hover {
-	background-color:#feffba;
-	
-}
-	
-table#song-list tr.selected-song {
-	background-color: rgba(0,0,0,0.7); 
-	color:#F0F2EB;
-}
-	
-table#song-list tr.selected-song  a {
-	color:#fff;
-}
-	
-table#song-list tr.selected-song:hover {
-	background-color: rgba(0,0,0,0.7); 
-	cursor: default;
-}
-	
-table#song-list td {
+
+
+table#mp3Player-table tr td {
 	padding:0 5px;
 }
 	
-table#song-list th {
+table#mp3Player-table tr th {
 	padding: 4px 8px;
 	background: #76756B; 
 	color:#fff;
 }
 	
-tr.category-music {
+table#mp3Player-table tr {
 	background-color: rgba(255, 255, 255, 0.3);
 }
 	
-tr.category-music:nth-child(2n) {
-	background-color: rgba(255, 255, 255, 0.7);
+table#mp3Player-table tr:nth-child(2n) {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+table#mp3Player-table tr.current {
+	background-color: rgba(0,0,0,0.7); 
+	cursor: default;
+	color:#fff;
 }
 	
-td.song-name {
+td.title {
 	width:150px;
 	font-weight: bold;
 }
 	
-td.song-name h2 {
-	font-size: 13px;
+td.length {
+	width:200px;
+	color: #999;
+}
+
+td.artist {
+	width:150px;
 	font-weight: bold;
-	font-family:  Georgia, Palatino, Palatino Linotype, Times, Times New Roman, serif;
 }
 	
-td.song-tags {
+td.album {
 	width:200px;
 	color: #999;
 }
