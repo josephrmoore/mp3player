@@ -671,7 +671,7 @@ jQuery(document).ready(function($){
 	}
 		
 	$.ajax({
-		url: 'mp3player/player/getmp3s.php',
+		url: 'mp3player/player/php/getmp3s.php',
 		success: function(data) {
 					
 			$('#mp3Player').html(data);
