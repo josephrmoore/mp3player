@@ -159,7 +159,6 @@ function ts_resortTable(lnk, clid) {
 	}		
 	span.innerHTML = ARROW;
 	alternate(t);
-	resetOrder();
 }
 
 function getParent(el, pTagName) {

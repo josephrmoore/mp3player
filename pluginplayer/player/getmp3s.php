@@ -1,9 +1,12 @@
-<audio id="player" controls><source id="mp3" src="" /><p class="no-html5">Your browser doesn\'t support HTML5 audio</p></audio>
+<audio id="player"><source id="mp3" src="" /><p class="no-html5">Your browser doesn\'t support HTML5 audio</p></audio>
 <button id="play">Play</button>
 <button id="pause">Pause</button>
 <button id="next">Next</button>
 <button id="prev">Prev</button>
-
+<span id="currentTime"></span>
+<span id="remainingTime"></span>
+<div id="volume"></div>
+<div id="progress"></div>
 
 <table class="sortable" id="sortabletable">
 	<colgroup>
@@ -42,9 +45,21 @@
 				$ThisFileInfo = $getID3->analyze($FullFileName);
 				getid3_lib::CopyTagsToComments($ThisFileInfo);
 				echo '<tr data-file="'.$ThisFileInfo['filename'].'">';
-				echo '<td class="artist">'.implode($ThisFileInfo['comments_html']['artist']).'</td>';
-				echo '<td class="title">'.implode($ThisFileInfo['comments_html']['title']).'</td>';
-				echo '<td class="album">'.implode($ThisFileInfo['comments_html']['album']).'</td>';
+				if($ThisFileInfo['comments_html']['artist']){
+					echo '<td class="artist">'.implode($ThisFileInfo['comments_html']['artist']).'</td>';
+				} else {
+					echo '<td class="artist">Unknown Artist</td>';
+				}
+				if($ThisFileInfo['comments_html']['title']){
+					echo '<td class="title">'.implode($ThisFileInfo['comments_html']['title']).'</td>';
+				} else {
+					echo '<td class="title">Unknown Song</td>';
+				}
+				if($ThisFileInfo['comments_html']['album']){
+					echo '<td class="album">'.implode($ThisFileInfo['comments_html']['album']).'</td>';
+				} else {
+					echo '<td class="album">Unknown Album</td>';
+				}
 				echo '<td class="length">'.$ThisFileInfo['playtime_string'].'</td>';
 				echo '</tr>';
 			}
