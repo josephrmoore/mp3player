@@ -534,12 +534,27 @@ jQuery(document).ready(function($){
 		this.totalSongs = rows.length;
 		this.currentSong = 0;
 		this.object = $('#mp3Player-player');
-		this.loadSong = function(){
+		this.played = false;
+		this.loadSong = function(index){
+			currentSong = index;
+			$('.mp3controls').addClass('disabled');
 			var src = 'mp3player/music/' + playlist.songs[currentSong].file;
 			$('#mp3Player-mp3').attr('src', src).appendTo(player.object);
 			this.object[0].load();
-			playlist.rows.removeClass('current');
-			$(playlist.rows[currentSong]).addClass('current');
+			
+			this.object[0].addEventListener("canplay", function() {
+				playlist.rows.removeClass('current');
+				$(playlist.rows[currentSong]).addClass('current');
+				checkFirstLast();
+				$('#mp3Player-play').removeClass('disabled');
+				$('#mp3Player-pause').removeClass('disabled');
+				
+				$('#mp3Player-play').addClass('display-off');
+				$('#mp3Player-pause').removeClass('display-off');
+				player.playSong();
+
+			}, true);
+			
 		}
 		this.playSong = function(){
 			this.object[0].play();
@@ -550,13 +565,13 @@ jQuery(document).ready(function($){
 		this.nextSong = function(){
 			if(currentSong != (player.totalSongs - 1)){
 				++currentSong;
-				selectSong(currentSong);
+				player.loadSong(currentSong);
 			}
 		};
 		this.prevSong = function(){
 			if(currentSong != 0){
 				--currentSong;
-				selectSong(currentSong);
+				player.loadSong(currentSong);
 			}
 		};
 	}
@@ -570,14 +585,28 @@ jQuery(document).ready(function($){
 				currentSong = $(this).index();
 			}
 		});
+		checkFirstLast();
 	}
 
-	function selectSong(index){
-		currentSong = index;
-		player.loadSong();
-		player.playSong();
+	function checkFirstLast(){
+		// first song, and more than 1 song total
+		if(currentSong == 0 && $(playlist.rows[currentSong]).index() < (player.totalSongs - 1) ){
+			$('#mp3Player-prev').addClass('disabled');
+			$('#mp3Player-next').removeClass('disabled');
+		// first song, only one song
+		} else if (currentSong == 0 && $(playlist.rows[currentSong]).index() == (player.totalSongs - 1)){
+			$('#mp3Player-prev').addClass('disabled');
+			$('#mp3Player-next').addClass('disabled');
+		// last song
+		} else if (currentSong == (player.totalSongs - 1)){
+			$('#mp3Player-prev').removeClass('disabled');
+			$('#mp3Player-next').addClass('disabled');
+		// any other song that's not first or last
+		} else {
+			$('#mp3Player-prev').removeClass('disabled');
+			$('#mp3Player-next').removeClass('disabled');	
+		}
 	}
-
 
 	function init(rows){
 
@@ -589,15 +618,21 @@ jQuery(document).ready(function($){
 		// set clickable on songs
 		rows.each(function(){
 			$(this).click(function(){
-				selectSong($(this).index());
+				player.loadSong($(this).index());
 			});
 		});
 
 		$('#mp3Player-play').click(function(){
+			if(player.played == false){
+				player.played = true;
+				player.loadSong(0);
+			}
 			player.playSong();
 		});
 
 		$('#mp3Player-pause').click(function(){
+			$(this).addClass('display-off');
+			$('#mp3Player-play').removeClass('display-off');
 			player.pauseSong();
 		});
 
@@ -654,6 +689,16 @@ jQuery(document).ready(function($){
 					player.object[0].currentTime = (ui.value/100)*(player.object[0].duration);
 				}
 			});
+			
+		$('#mp3Player-min-volume').click(function(){
+			player.object[0].volume = 0;
+			volumeslider.slider('option', 'value', '0');
+		});
+
+		$('#mp3Player-max-volume').click(function(){
+			player.object[0].volume = 1;
+			volumeslider.slider('option', 'value', '1');
+		});
 
 		// format time in seconds to the 0:00:00 format needed to display
 		function formatTime(s){
@@ -685,7 +730,4 @@ jQuery(document).ready(function($){
 			
 		}
 	});
-	
 });
-
-

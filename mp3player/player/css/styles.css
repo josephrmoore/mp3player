@@ -105,3 +105,7 @@ button#mp3Player-prev.disabled {
 	height:23px;
 	background: url(../images/icons.png) no-repeat 0px -22px;
 }
+
+.display-off {
+	display:none !important;
+}
