@@ -535,7 +535,7 @@ jQuery(document).ready(function($){
 		this.currentSong = 0;
 		this.object = $('#mp3Player-player');
 		this.loadSong = function(){
-			var src = 'pluginplayer/music/' + playlist.songs[currentSong].file;
+			var src = 'mp3player/music/' + playlist.songs[currentSong].file;
 			$('#mp3Player-mp3').attr('src', src).appendTo(player.object);
 			this.object[0].load();
 			playlist.rows.removeClass('current');
