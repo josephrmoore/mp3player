@@ -533,10 +533,10 @@ jQuery(document).ready(function($){
 		console.log('New player created');
 		this.totalSongs = rows.length;
 		this.currentSong = 0;
-		this.object = $('#player');
+		this.object = $('#mp3Player-player');
 		this.loadSong = function(){
 			var src = 'pluginplayer/music/' + playlist.songs[currentSong].file;
-			$('#mp3').attr('src', src).appendTo(player.object);
+			$('#mp3Player-mp3').attr('src', src).appendTo(player.object);
 			this.object[0].load();
 			playlist.rows.removeClass('current');
 			$(playlist.rows[currentSong]).addClass('current');
@@ -581,10 +581,10 @@ jQuery(document).ready(function($){
 
 	function init(rows){
 
-		var current = $('#currentTime');
-		var remaining = $('#remainingTime');
-		var volumeslider = $('#volume');
-		var progress = $('#progress');
+		var current = $('#mp3Player-currentTime');
+		var remaining = $('#mp3Player-remainingTime');
+		var volumeslider = $('#mp3Player-volume');
+		var progress = $('#mp3Player-progress');
 
 		// set clickable on songs
 		rows.each(function(){
@@ -593,19 +593,19 @@ jQuery(document).ready(function($){
 			});
 		});
 
-		$('#play').click(function(){
+		$('#mp3Player-play').click(function(){
 			player.playSong();
 		});
 
-		$('#pause').click(function(){
+		$('#mp3Player-pause').click(function(){
 			player.pauseSong();
 		});
 
-		$('#next').click(function(){
+		$('#mp3Player-next').click(function(){
 			player.nextSong();
 		});
 
-		$('#prev').click(function(){
+		$('#mp3Player-prev').click(function(){
 			player.prevSong();
 		});
 
@@ -678,7 +678,7 @@ jQuery(document).ready(function($){
 			
 			initSorttable();
 			
-			playlist = new Playlist($('#sortabletable'));
+			playlist = new Playlist($('#mp3Player-table'));
 			player = new Player(playlist.rows);
 			
 			init(playlist.rows);			

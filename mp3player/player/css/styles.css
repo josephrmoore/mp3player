@@ -1,0 +1,107 @@
+span#mp3Player-min-volume {
+	display:block;
+	width:27px;
+	height:23px;
+	background: url(../images/icons.png) no-repeat -57px 0px;
+}
+
+span#mp3Player-max-volume {
+	display:block;
+	width:24px;
+	height:23px;
+	background: url(../images/icons.png) no-repeat -33px 0px;
+}
+
+button#mp3Player-play {
+	display:block;
+	border:none;
+	padding:0;
+	text-indent:-9999px;
+	width:24px;
+	height:23px;
+	background: url(../images/icons.png) no-repeat -103px 0px;
+}
+
+button#mp3Player-pause {
+	display:block;
+	border:none;
+	padding:0;
+	text-indent:-9999px;
+	width:18px;
+	height:23px;
+	background: url(../images/icons.png) no-repeat -85px 0px;
+}
+
+button#mp3Player-next {
+	display:block;
+	border:none;
+	padding:0;
+	text-indent:-9999px;
+	width:16px;
+	height:23px;
+	background: url(../images/icons.png) no-repeat -16px 0px;
+}
+
+button#mp3Player-prev {
+	display:block;
+	border:none;
+	padding:0;
+	text-indent:-9999px;
+	width:17px;
+	height:23px;
+	background: url(../images/icons.png) no-repeat 0px 0px;
+}
+
+span#mp3Player-min-volume.disabled {
+	display:block;
+	width:27px;
+	height:23px;
+	background: url(../images/icons.png) no-repeat -57px -22px;
+}
+
+span#mp3Player-max-volume.disabled {
+	display:block;
+	width:24px;
+	height:23px;
+	background: url(../images/icons.png) no-repeat -33px -22px;
+}
+
+button#mp3Player-play.disabled {
+	display:block;
+	border:none;
+	padding:0;
+	text-indent:-9999px;
+	width:24px;
+	height:23px;
+	background: url(../images/icons.png) no-repeat -103px -22px;
+}
+
+button#mp3Player-pause.disabled {
+	display:block;
+	border:none;
+	padding:0;
+	text-indent:-9999px;
+	width:18px;
+	height:23px;
+	background: url(../images/icons.png) no-repeat -85px -22px;
+}
+
+button#mp3Player-next.disabled {
+	display:block;
+	border:none;
+	padding:0;
+	text-indent:-9999px;
+	width:16px;
+	height:23px;
+	background: url(../images/icons.png) no-repeat -16px -22px;
+}
+
+button#mp3Player-prev.disabled {
+	display:block;
+	border:none;
+	padding:0;
+	text-indent:-9999px;
+	width:17px;
+	height:23px;
+	background: url(../images/icons.png) no-repeat 0px -22px;
+}

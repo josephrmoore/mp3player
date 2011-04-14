@@ -1,14 +1,28 @@
-<audio id="player"><source id="mp3" src="" /><p class="no-html5">Your browser doesn\'t support HTML5 audio</p></audio>
-<button id="play">Play</button>
-<button id="pause">Pause</button>
-<button id="next">Next</button>
-<button id="prev">Prev</button>
-<span id="currentTime"></span>
-<span id="remainingTime"></span>
-<div id="volume"></div>
-<div id="progress"></div>
+<audio id="mp3Player-player">
+	<source id="mp3Player-mp3" src="" />
+	<p class="no-html5">Your browser doesn\'t support HTML5 audio</p>
+</audio>
 
-<table class="sortable" id="sortabletable">
+<div id="mp3Player-buttons-container">
+	<button id="mp3Player-play">Play</button>
+	<button id="mp3Player-pause">Pause</button>
+	<button id="mp3Player-next">Next</button>
+	<button id="mp3Player-prev">Prev</button>
+</div>
+
+<div id="mp3Player-progress-container">
+	<span id="mp3Player-currentTime"></span>
+	<div id="mp3Player-progress"></div>
+	<span id="mp3Player-remainingTime"></span>
+</div>
+
+<div id="mp3Player-volume-container" class="group">
+	<span id="mp3Player-min-volume"></span>
+	<div id="mp3Player-volume"></div>
+	<span id="mp3Player-max-volume"></span>
+</div>
+
+<table class="sortable" id="mp3Player-table">
 	<colgroup>
 		<col class="artist" />
 		<col class="title" />
