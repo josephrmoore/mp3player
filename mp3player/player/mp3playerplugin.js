@@ -542,9 +542,9 @@ jQuery(document).ready(function($){
 		this.songLength = $(row).find('td.length').text();
 	}
 
-	function Player(rows){
+	function Player(playlist){
 		console.log('New player created');
-		this.totalSongs = rows.length;
+		this.totalSongs = playlist.rows.length;
 		this.currentSong = 0;
 		this.object = $('#mp3Player-player');
 		this.played = false;
@@ -561,7 +561,7 @@ jQuery(document).ready(function($){
 				checkFirstLast();
 				$('#mp3Player-play').removeClass('disabled').addClass('display-off');
 				$('#mp3Player-pause').removeClass('disabled').removeClass('display-off');
-				this.playSong();
+				player.playSong();
 
 			}, true);
 			
@@ -592,7 +592,7 @@ jQuery(document).ready(function($){
 	function resetOrder(){
 		var table = playlist.table;
 		playlist = new Playlist(table);
-		player = new Player(playlist.rows);
+		player = new Player(playlist);
 		playlist.rows.each(function(){
 			if($(this).hasClass('current')){
 				currentSong = $(this).index();
@@ -640,7 +640,32 @@ jQuery(document).ready(function($){
 				player.loadSong($(this).index());
 			});
 		});
+		
+		// create volume slider
+		volumeslider.slider({
+			min:0, 
+			max:1, 
+			step:.1, 
+			value:1, 
+			slide:function(e, ui){
+				// on slide, update audio volume value
+				player.object[0].volume=ui.value;
+			}
+		});
 
+		// create progress slider						   
+		progress.slider({
+			min:0, 
+			max:100, 
+			step:.1, 
+			value:0, 
+			slide:function(e, ui){
+				// on slide, update current time to slider position
+				player.object[0].currentTime = (ui.value/100)*(player.object[0].duration);
+			}
+		});
+
+		// define events on controls
 		play.click(function(){
 			if(player.played == false){
 				player.played = true;
@@ -664,8 +689,18 @@ jQuery(document).ready(function($){
 		prev.click(function(){
 			player.prevSong();
 		});
+		
+		minvolume.click(function(){
+			player.object[0].volume = 0;
+			volumeslider.slider('option', 'value', '0');
+		});
 
-		// go to next song 
+		maxvolume.click(function(){
+			player.object[0].volume = 1;
+			volumeslider.slider('option', 'value', '1');
+		});
+
+		// go to next song on end of song
 		player.object[0].addEventListener("ended", function() {										  
 			player.nextSong();
 		}, true);
@@ -673,7 +708,7 @@ jQuery(document).ready(function($){
 		// update time/slider
 		player.object[0].addEventListener("timeupdate", function() {
 			s=player.object[0].currentTime;
-			d=player.object[0].duration;
+			d=Math.ceil(player.object[0].duration);
 			var n=(d-s);
 			if (s===0){
 				current.html("-:--:--");
@@ -685,40 +720,6 @@ jQuery(document).ready(function($){
 			}		
 
 		}, true);
-
-		// create volume slider
-			volumeslider.slider({
-				min:0, 
-				max:1, 
-				step:.1, 
-				value:1, 
-				slide:function(e, ui){
-					// on slide, update audio volume value
-					player.object[0].volume=ui.value;
-				}
-			});
-
-		// create progress slider						   
-			progress.slider({
-				min:0, 
-				max:100, 
-				step:.1, 
-				value:0, 
-				slide:function(e, ui){
-					// on slide, update current time to slider position
-					player.object[0].currentTime = (ui.value/100)*(player.object[0].duration);
-				}
-			});
-			
-		minvolume.click(function(){
-			player.object[0].volume = 0;
-			volumeslider.slider('option', 'value', '0');
-		});
-
-		maxvolume.click(function(){
-			player.object[0].volume = 1;
-			volumeslider.slider('option', 'value', '1');
-		});
 
 		// format time in seconds to the 0:00:00 format needed to display
 		function formatTime(s){
@@ -745,7 +746,7 @@ jQuery(document).ready(function($){
 			mp3player.html(data);
 			initSorttable();	
 			playlist = new Playlist($('#mp3Player-table'));
-			player = new Player(playlist.rows);
+			player = new Player(playlist);
 			init(playlist.rows);
 		}
 	});

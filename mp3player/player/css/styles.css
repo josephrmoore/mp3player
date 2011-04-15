@@ -181,7 +181,7 @@ table#mp3Player-table tr:nth-child(2n) {
 }
 
 table#mp3Player-table tr.current {
-	background-color: rgba(0,0,0,0.7); 
+	background-color: rgba(0,0,0,0.5); 
 	cursor: default;
 	color:#fff;
 }
