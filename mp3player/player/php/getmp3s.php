@@ -45,7 +45,8 @@
 <?php
 
 	require_once('getid3/getid3.php');
-	require_once('musicfolderpath.php');
+	
+	$DirectoryToScan = '../../../' . $_GET['mp3Player-folder'];
 	
 	$getID3 = new getID3;
 	$dir = opendir($DirectoryToScan);

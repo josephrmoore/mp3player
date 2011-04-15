@@ -1,10 +1,13 @@
 jQuery(document).ready(function($){	
 	// Begin variables
 	
+	var musicFolder = 'mp3player/music';
+	var url = 'mp3player/player/php/getmp3s.php?mp3Player-folder=' + musicFolder;
 	var playlist;
 	var player;
 	var currentSong = 0;
 	var mp3player = $('#mp3Player');
+	
 	
 	// End variables
 	// Begin sorttable code
@@ -548,7 +551,7 @@ jQuery(document).ready(function($){
 		this.loadSong = function(index){
 			currentSong = index;
 			$('.mp3controls').addClass('disabled');
-			var src = 'mp3player/music/' + playlist.songs[currentSong].file;
+			var src = musicFolder + '/' + playlist.songs[currentSong].file;
 			$('#mp3Player-mp3').attr('src', src).appendTo(player.object);
 			this.object[0].load();
 			
@@ -558,7 +561,7 @@ jQuery(document).ready(function($){
 				checkFirstLast();
 				$('#mp3Player-play').removeClass('disabled').addClass('display-off');
 				$('#mp3Player-pause').removeClass('disabled').removeClass('display-off');
-				player.playSong();
+				this.playSong();
 
 			}, true);
 			
@@ -570,15 +573,15 @@ jQuery(document).ready(function($){
 			this.object[0].pause();
 		};
 		this.nextSong = function(){
-			if(currentSong != (player.totalSongs - 1)){
+			if(currentSong != (this.totalSongs - 1)){
 				++currentSong;
-				player.loadSong(currentSong);
+				this.loadSong(currentSong);
 			}
 		};
 		this.prevSong = function(){
 			if(currentSong != 0){
 				--currentSong;
-				player.loadSong(currentSong);
+				this.loadSong(currentSong);
 			}
 		};
 	}
@@ -735,8 +738,9 @@ jQuery(document).ready(function($){
 	// End functions
 	// Begin on ready code
 		
+	
 	$.ajax({
-		url: 'mp3player/player/php/getmp3s.php',
+		url: url,
 		success: function(data) {
 			mp3player.html(data);
 			initSorttable();	
