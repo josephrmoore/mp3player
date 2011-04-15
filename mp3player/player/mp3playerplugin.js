@@ -1,9 +1,16 @@
 jQuery(document).ready(function($){	
+	// Begin variables
+	
 	var playlist;
 	var player;
 	var currentSong = 0;
+	var mp3player = $('#mp3Player');
+	
+	// End variables
+	// Begin sorttable code
 	
 	function initSorttable(){
+		
 		/*
 		  SortTable
 		  version 2
@@ -505,6 +512,9 @@ jQuery(document).ready(function($){
 		
 	}
 	
+	// End sorttable code
+	// Begin class definitions
+	
 	function Playlist(table){
 		console.log('New playlist created');
 		this.table = table;
@@ -546,11 +556,8 @@ jQuery(document).ready(function($){
 				playlist.rows.removeClass('current');
 				$(playlist.rows[currentSong]).addClass('current');
 				checkFirstLast();
-				$('#mp3Player-play').removeClass('disabled');
-				$('#mp3Player-pause').removeClass('disabled');
-				
-				$('#mp3Player-play').addClass('display-off');
-				$('#mp3Player-pause').removeClass('display-off');
+				$('#mp3Player-play').removeClass('disabled').addClass('display-off');
+				$('#mp3Player-pause').removeClass('disabled').removeClass('display-off');
 				player.playSong();
 
 			}, true);
@@ -575,6 +582,9 @@ jQuery(document).ready(function($){
 			}
 		};
 	}
+	
+	// End class definitions
+	// Begin functions
 
 	function resetOrder(){
 		var table = playlist.table;
@@ -614,6 +624,12 @@ jQuery(document).ready(function($){
 		var remaining = $('#mp3Player-remainingTime');
 		var volumeslider = $('#mp3Player-volume');
 		var progress = $('#mp3Player-progress');
+		var minvolume = $('#mp3Player-min-volume');
+		var maxvolume = $('#mp3Player-max-volume');
+		var prev = $('#mp3Player-prev');
+		var next = $('#mp3Player-next');
+		var play = $('#mp3Player-play');
+		var pause = $('#mp3Player-pause');
 
 		// set clickable on songs
 		rows.each(function(){
@@ -622,25 +638,27 @@ jQuery(document).ready(function($){
 			});
 		});
 
-		$('#mp3Player-play').click(function(){
+		play.click(function(){
 			if(player.played == false){
 				player.played = true;
 				player.loadSong(0);
 			}
+			play.addClass('display-off');
+			pause.removeClass('display-off');
 			player.playSong();
 		});
 
-		$('#mp3Player-pause').click(function(){
-			$(this).addClass('display-off');
-			$('#mp3Player-play').removeClass('display-off');
+		pause.click(function(){
+			pause.addClass('display-off');
+			play.removeClass('display-off');
 			player.pauseSong();
 		});
 
-		$('#mp3Player-next').click(function(){
+		next.click(function(){
 			player.nextSong();
 		});
 
-		$('#mp3Player-prev').click(function(){
+		prev.click(function(){
 			player.prevSong();
 		});
 
@@ -671,9 +689,8 @@ jQuery(document).ready(function($){
 				max:1, 
 				step:.1, 
 				value:1, 
-		//		orientation:'vertical', 
 				slide:function(e, ui){
-		// on slide, update audio volume value
+					// on slide, update audio volume value
 					player.object[0].volume=ui.value;
 				}
 			});
@@ -685,17 +702,17 @@ jQuery(document).ready(function($){
 				step:.1, 
 				value:0, 
 				slide:function(e, ui){
-		// on slide, update current time to slider position
+					// on slide, update current time to slider position
 					player.object[0].currentTime = (ui.value/100)*(player.object[0].duration);
 				}
 			});
 			
-		$('#mp3Player-min-volume').click(function(){
+		minvolume.click(function(){
 			player.object[0].volume = 0;
 			volumeslider.slider('option', 'value', '0');
 		});
 
-		$('#mp3Player-max-volume').click(function(){
+		maxvolume.click(function(){
 			player.object[0].volume = 1;
 			volumeslider.slider('option', 'value', '1');
 		});
@@ -706,7 +723,7 @@ jQuery(document).ready(function($){
 			s=s%3600;
 			var m=Math.floor(s/60);
 			s=Math.floor(s%60);
-			/* pad the minute and second strings to two digits */
+			// pad the minute and second strings to two digits 
 			if (s.toString().length < 2) s="0"+s;
 			if (m.toString().length < 2) m="0"+m;
 
@@ -714,22 +731,20 @@ jQuery(document).ready(function($){
 			return time;
 		}
 	}
+	
+	// End functions
+	// Begin on ready code
 		
 	$.ajax({
 		url: 'mp3player/player/php/getmp3s.php',
 		success: function(data) {
-					
-			$('#mp3Player').html(data);
-			
-			initSorttable();
-			
+			mp3player.html(data);
+			initSorttable();	
 			playlist = new Playlist($('#mp3Player-table'));
 			player = new Player(playlist.rows);
-			
-			init(playlist.rows);			
-			
+			init(playlist.rows);
 		}
 	});
 	
-	$('#mp3Player').html('<span id="mp3Player-loading">Loading...</span>');
+	mp3player.html('<span id="mp3Player-loading">Loading...</span>');
 });
