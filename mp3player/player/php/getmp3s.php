@@ -4,10 +4,12 @@
 </audio>
 
 <div id="mp3Player-controls" class="mp3Player-group">
-	<div id="mp3Player-buttons-container" class="mp3Player-group">
+	<div id="mp3Player-buttons-container">
 		<button id="mp3Player-prev" class="mp3controls disabled">Prev</button>
-		<button id="mp3Player-play" class="mp3controls">Play</button>
-		<button id="mp3Player-pause" class="mp3controls display-off">Pause</button>
+		<div id="mp3Player-play-pause">
+			<button id="mp3Player-play" class="mp3controls">Play</button>
+			<button id="mp3Player-pause" class="mp3controls display-off">Pause</button>
+		</div>
 		<button id="mp3Player-next" class="mp3controls disabled">Next</button>
 	</div>
 
