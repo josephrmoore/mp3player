@@ -1,15 +1,15 @@
 span#mp3Player-min-volume {
 	display:inline-block;
-	width:27px;
-	height:23px;
-	background: url(../images/icons.png) no-repeat -57px 0px;
+	width:19px;
+	height:21px;
+	background: url(../images/icons.png) no-repeat -61px 0px;
 }
 
 span#mp3Player-max-volume {
 	display:inline-block;
-	width:24px;
-	height:23px;
-	background: url(../images/icons.png) no-repeat -33px 2px;
+	width:17px;
+	height:21px;
+	background: url(../images/icons.png) no-repeat -37px 2px;
 }
 
 button#mp3Player-play {
@@ -241,7 +241,7 @@ div#mp3Player-volume-container {
 }
 
 div#mp3Player-volume {
-	width:39%;
+	width:60%;
 	display:inline-block;
 	margin:0 3%;
 }
