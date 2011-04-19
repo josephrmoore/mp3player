@@ -2,36 +2,14 @@
 
 /* Design Rules */
 
-table {
-	font-size:12px;
-}
-
-td.title {
-	font-size:14px;
-	font-weight: bold;
-}
-
 .progressContainer {
 	border: 1px solid #ccc;
 }
 
 .playerControls {
-	background: #FFFFFF; /* old browsers */
-	background: -moz-linear-gradient(top, #FFFFFF 0%, #E5E5E5 100%); /* firefox */
-
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(100%,#E5E5E5)); /* webkit */
-
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#E5E5E5',GradientType=0 ); /* ie */
-}
-
-tr {
-	background-color: #fff;
-	padding:20px 0;
-}
-
-tr.current {
-	background-color: rgba(0,0,0,0.5); 
-	color:#fff;
+	background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,.1) 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(0,0,0,.1))); /* webkit */
+	background: -o-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(0,0,0,.1) 100%); /* opera */
 }
 
 th {
@@ -43,12 +21,21 @@ th {
 
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6D6D6D', endColorstr='#141414',GradientType=0 ); /* ie */
 }
+tr {
+	background-color: #fff;
+}
 
 tr:nth-child(2n) {
 	background-color: #ddd;
 }
 
+tr.current {
+	background-color: rgba(0,0,0,0.5); 
+	color:#fff;
+}
+
 #mp3Player {
 	border:2px solid #ccc;
 	background:#efefef;
+	color:#000;
 }

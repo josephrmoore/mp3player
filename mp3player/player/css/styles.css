@@ -1,4 +1,8 @@
-@import "design.css";
+
+
+@import "blackandwhite.css";
+
+
 
 div#mp3Player {
 	min-width:450px;
@@ -38,10 +42,12 @@ div#mp3Player-controls {
 table#mp3Player-table {
 	width:100%;
 	border-collapse:collapse;
+	font-size:12px;
 }
 
 table#mp3Player-table tr {
-	cursor:pointer;
+	cursor:pointer
+	padding:20px 0;
 }
 	
 table#mp3Player-table tr.current {
@@ -55,6 +61,11 @@ table#mp3Player-table tr th {
 	
 table#mp3Player-table tr td {
 	padding:2px 5px;
+}
+
+table#mp3Player-table td.title {
+	font-size:14px;
+	font-weight: bold;
 }
 
 /* Buttons */
@@ -78,6 +89,7 @@ button#mp3Player-play {
 	width:24px;
 	height:23px;
 	background: url(../images/icons.png) no-repeat -103px 0px;
+	cursor:pointer;
 }
 
 button#mp3Player-pause {
@@ -87,6 +99,7 @@ button#mp3Player-pause {
 	width:18px;
 	height:23px;
 	background: url(../images/icons.png) no-repeat -84px 0px;
+	cursor:pointer;
 }
 
 button#mp3Player-next {
@@ -100,6 +113,7 @@ button#mp3Player-next {
 	position:absolute;
 	top:3px;
 	right:10%;
+	cursor:pointer;
 }
 
 button#mp3Player-prev {
@@ -113,6 +127,7 @@ button#mp3Player-prev {
 	position:absolute;
 	top:3px;
 	left:10%;
+	cursor:pointer;
 }
 
 button#mp3Player-play.disabled {
@@ -122,6 +137,7 @@ button#mp3Player-play.disabled {
 	width:24px;
 	height:23px;
 	background: url(../images/icons.png) no-repeat -103px -22px;
+	cursor:default;
 }
 
 button#mp3Player-pause.disabled {
@@ -131,6 +147,7 @@ button#mp3Player-pause.disabled {
 	width:18px;
 	height:23px;
 	background: url(../images/icons.png) no-repeat -85px -22px;
+	cursor:default;
 }
 
 button#mp3Player-next.disabled {
@@ -140,6 +157,7 @@ button#mp3Player-next.disabled {
 	width:16px;
 	height:23px;
 	background: url(../images/icons.png) no-repeat -16px -22px;
+	cursor:default;
 }
 
 button#mp3Player-prev.disabled {
@@ -149,6 +167,7 @@ button#mp3Player-prev.disabled {
 	width:17px;
 	height:23px;
 	background: url(../images/icons.png) no-repeat 0px -22px;
+	cursor:default;
 }
 
 /* Track Display */
@@ -203,6 +222,7 @@ span#mp3Player-min-volume {
 	width:19px;
 	height:21px;
 	background: url(../images/icons.png) no-repeat -61px 0px;
+	cursor:pointer;
 }
 
 span#mp3Player-max-volume {
@@ -210,18 +230,49 @@ span#mp3Player-max-volume {
 	width:17px;
 	height:21px;
 	background: url(../images/icons.png) no-repeat -37px 2px;
+	cursor:pointer;
 }
 
 span#mp3Player-min-volume.disabled {
 	width:27px;
 	height:23px;
 	background: url(../images/icons.png) no-repeat -57px -22px;
+	cursor:default;
 }
 
 span#mp3Player-max-volume.disabled {
 	width:24px;
 	height:23px;
 	background: url(../images/icons.png) no-repeat -33px -22px;
+	cursor:default;
+}
+
+/* Default styling */
+
+table#mp3Player-table .playerControls {
+	background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(0,0,0,.1) 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(0,0,0,.1))); /* webkit */
+	background: -o-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(0,0,0,.1) 100%); /* opera */
+}
+
+table#mp3Player-table th {
+	background: #6D6D6D; /* old browsers */
+	background: -moz-linear-gradient(top, rgba(0,0,0,.2) 0%, rgba(0,0,0,.4) 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0,0,0,.2)), color-stop(100%, rgba(0,0,0,.4))); /* webkit */
+	background: -o-linear-gradient(top, rgba(0,0,0,.2) 0%,rgba(0,0,0,.4) 100%); /* opera */
+}
+
+table#mp3Player-table tr:nth-child(2n) {
+	background-color: rgba(255,255,255,.2);
+}
+
+table#mp3Player-table tr.current {
+	background-color: rgba(0,0,0,0.5); 
+	color:#fff;
+}
+
+#mp3Player {
+	border:2px solid rgba(0,0,0,.1);
 }
 
 /* Misc rules */
