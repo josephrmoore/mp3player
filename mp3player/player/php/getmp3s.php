@@ -12,6 +12,8 @@ $length = $_GET['mp3Player-length'];
 $genre = $_GET['mp3Player-genre'];
 $year = $_GET['mp3Player-year'];
 
+$totalCols = 0;
+
 ?>
 
 <audio id="mp3Player-player">
@@ -44,25 +46,25 @@ $year = $_GET['mp3Player-year'];
 
 <table class="sortable" id="mp3Player-table">
 	<colgroup>
-	<?php if($title == 'true'){ ?>
+	<?php if($title == 'true'){ $totalCols++; ?>
 		<col class="title" />
 	<?php } ?>
-	<?php if($artist == 'true'){ ?>
+	<?php if($artist == 'true'){ $totalCols++; ?>
 		<col class="artist" />
 	<?php } ?>
-	<?php if($album == 'true'){ ?>
+	<?php if($album == 'true'){ $totalCols++; ?>
 		<col class="album" />
 	<?php } ?>
-	<?php if($length == 'true'){ ?>
+	<?php if($length == 'true'){ $totalCols++; ?>
 		<col class="play-time" />
 	<?php } ?>
-	<?php if($track == 'true'){ ?>
+	<?php if($track == 'true'){ $totalCols++; ?>
 		<col class="track" />
 	<?php } ?>
-	<?php if($genre == 'true'){ ?>
+	<?php if($genre == 'true'){ $totalCols++; ?>
 		<col class="genre" />
 	<?php } ?>
-	<?php if($year == 'true'){ ?>
+	<?php if($year == 'true'){ $totalCols++; ?>
 		<col class="year" />
 	<?php } ?>
 	</colgroup>
@@ -97,11 +99,13 @@ $year = $_GET['mp3Player-year'];
 	$getID3 = new getID3;
 	
 	$files = scandir($DirectoryToScan);
+	$totalMp3s = 0;
 	foreach($files as $file){
 		$pos = strrpos($file, '.') + 1;
 		$ext = strtolower(substr($file, $pos));
 		
 		if(($file !="." && $file != "..") && $ext=="mp3"){
+			$totalMp3s++;
 			$FullFileName = realpath($DirectoryToScan.'/'.$file);
 			
 			if (is_file($FullFileName)) {
@@ -158,6 +162,10 @@ $year = $_GET['mp3Player-year'];
 			}
 			
 		}
+	}
+	
+	if($totalMp3s == 0){
+		echo '<tr class="no-mp3s"><td colspan="' . $totalCols . '">There are no MP3s for this player. There may be OGG files, but currently your browser doesn\'t support OGG audio. Try using Firefox or Opera if you think you may need an OGG compatible browser.</td></tr>';
 	}
 		
 ?>
