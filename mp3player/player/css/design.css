@@ -1,0 +1,54 @@
+
+
+/* Design Rules */
+
+table {
+	font-size:12px;
+}
+
+td.title {
+	font-size:14px;
+	font-weight: bold;
+}
+
+.progressContainer {
+	border: 1px solid #ccc;
+}
+
+.playerControls {
+	background: #FFFFFF; /* old browsers */
+	background: -moz-linear-gradient(top, #FFFFFF 0%, #E5E5E5 100%); /* firefox */
+
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FFFFFF), color-stop(100%,#E5E5E5)); /* webkit */
+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFFFFF', endColorstr='#E5E5E5',GradientType=0 ); /* ie */
+}
+
+tr {
+	background-color: #fff;
+	padding:20px 0;
+}
+
+tr.current {
+	background-color: rgba(0,0,0,0.5); 
+	color:#fff;
+}
+
+th {
+	color:#ccc;
+	background: #6D6D6D; /* old browsers */
+	background: -moz-linear-gradient(top, #6D6D6D 0%, #141414 100%); /* firefox */
+
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6D6D6D), color-stop(100%,#141414)); /* webkit */
+
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6D6D6D', endColorstr='#141414',GradientType=0 ); /* ie */
+}
+
+tr:nth-child(2n) {
+	background-color: #ddd;
+}
+
+#mp3Player {
+	border:2px solid #ccc;
+	background:#efefef;
+}

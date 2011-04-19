@@ -1,12 +1,41 @@
 jQuery(document).ready(function($){	
 	// Begin variables
 	
-	var musicFolder = 'mp3player/music';
-	var url = 'mp3player/player/php/getmp3s.php?mp3Player-folder=' + musicFolder;
+	var tags = {
+		artist : true,
+		title : true,
+		album : true,
+		length : true,
+		track : false,
+		genre : false,
+		year : false
+	}
+	
+	var mp3player = $('#mp3Player');
+	var musicFolder = mp3player.attr('data-folder');
+	var url;
+	
+	if(testMp3()){
+		url = 'mp3player/player/php/getmp3s.php?mp3Player-folder=' + musicFolder;
+	} else {
+		url = 'mp3player/player/php/getoggs.php?mp3Player-folder=' + musicFolder;
+	}
+	
+	var tagsUrl = '';
+	
+	for (tag in tags){
+		tagsUrl += '&mp3Player-';
+		tagsUrl += tag;
+		tagsUrl += '=';
+		tagsUrl += tags[tag];
+	}
+
+	url += tagsUrl;
+
 	var playlist;
 	var player;
+	
 	var currentSong = 0;
-	var mp3player = $('#mp3Player');
 	
 	
 	// End variables
@@ -548,7 +577,11 @@ jQuery(document).ready(function($){
 		this.currentSong = 0;
 		this.object = $('#mp3Player-player');
 		this.played = false;
+		this.disabled = true;
 		this.loadSong = function(index){
+			$('#mp3Player-progress').removeClass('loaded');
+			
+			this.disabled = true;
 			currentSong = index;
 			$('.mp3controls').addClass('disabled');
 			var src = musicFolder + '/' + playlist.songs[currentSong].file;
@@ -561,8 +594,9 @@ jQuery(document).ready(function($){
 				checkFirstLast();
 				$('#mp3Player-play').removeClass('disabled').addClass('display-off');
 				$('#mp3Player-pause').removeClass('disabled').removeClass('display-off');
-				player.playSong();
-
+				$('#mp3Player-progress').addClass('loaded');
+				player.disabled = false;
+				player.playSong();				
 			}, true);
 			
 		}
@@ -591,8 +625,10 @@ jQuery(document).ready(function($){
 
 	function resetOrder(){
 		var table = playlist.table;
+		var status = player.disabled;
 		playlist = new Playlist(table);
 		player = new Player(playlist);
+		player.disabled = status;
 		playlist.rows.each(function(){
 			if($(this).hasClass('current')){
 				currentSong = $(this).index();
@@ -637,7 +673,11 @@ jQuery(document).ready(function($){
 		// set clickable on songs
 		rows.each(function(){
 			$(this).click(function(){
-				player.loadSong($(this).index());
+				if(player.disabled == false){
+					player.loadSong($(this).index());
+				} else if (player.disabled == true && player.played == false){
+					player.loadSong($(this).index());
+				}
 			});
 		});
 		
@@ -667,37 +707,49 @@ jQuery(document).ready(function($){
 
 		// define events on controls
 		play.click(function(){
+			if(player.disabled == false){
+				play.addClass('display-off');
+				pause.removeClass('display-off');
+				player.playSong();
+			}
 			if(player.played == false){
 				player.played = true;
 				player.loadSong(0);
 			}
-			play.addClass('display-off');
-			pause.removeClass('display-off');
-			player.playSong();
 		});
 
 		pause.click(function(){
-			pause.addClass('display-off');
-			play.removeClass('display-off');
-			player.pauseSong();
+			if(player.disabled == false){
+				pause.addClass('display-off');
+				play.removeClass('display-off');
+				player.pauseSong();
+			}
 		});
 
 		next.click(function(){
-			player.nextSong();
+			if(player.disabled == false){
+				player.nextSong();
+			}
 		});
 
 		prev.click(function(){
-			player.prevSong();
+			if(player.disabled == false){
+				player.prevSong();
+			}
 		});
 		
 		minvolume.click(function(){
-			player.object[0].volume = 0;
-			volumeslider.slider('option', 'value', '0');
+			if(player.disabled == false){
+				player.object[0].volume = 0;
+				volumeslider.slider('option', 'value', '0');
+			}
 		});
 
 		maxvolume.click(function(){
-			player.object[0].volume = 1;
-			volumeslider.slider('option', 'value', '1');
+			if(player.disabled == false){
+				player.object[0].volume = 1;
+				volumeslider.slider('option', 'value', '1');
+			}
 		});
 
 		// go to next song on end of song
@@ -736,10 +788,14 @@ jQuery(document).ready(function($){
 		}
 	}
 	
+	function testMp3(){
+		var a = document.createElement('audio');
+		return !!(a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
+	}
+	
 	// End functions
 	// Begin on ready code
 		
-	
 	$.ajax({
 		url: url,
 		success: function(data) {
@@ -750,6 +806,7 @@ jQuery(document).ready(function($){
 			init(playlist.rows);
 		}
 	});
-	
+
 	mp3player.html('<span id="mp3Player-loading">Loading...</span>');
+
 });
