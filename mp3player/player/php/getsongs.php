@@ -171,9 +171,9 @@ $totalCols = 0;
 	
 	if($totalAudio == 0){
 		if($audioType == "mp3"){
-			echo '<tr class="no-mp3s"><td colspan="' . $totalCols . '">There are no MP3s for this player. There may be OGG files, but currently your browser doesn\'t support OGG audio. Try using Firefox or Opera if you think you may need an OGG compatible browser.</td></tr>';
+			echo '<tr class="no-mp3s"><td colspan="' . $totalCols . '">Your browser doesn\'t support OGG audio files, and all the songs for this player are OGGs. Perhaps one day browser-makers will stop being stupid and support all common audio formats, making this message unnecessary. In the meantime, you can use Firefox or Opera to listen to this content.</td></tr>';
 		} else {
-			echo '<tr class="no-oggs"><td colspan="' . $totalCols . '">There are no OGGs for this player. There may be MP3 files, but currently your browser doesn\'t support MP3 audio. Try using Chrome or Safari if you think you may need an OGG compatible browser.</td></tr>';
+			echo '<tr class="no-oggs"><td colspan="' . $totalCols . '">Your browser doesn\'t support MP3 audio files, and all the songs for this player are MP3s. Perhaps one day browser-makers will stop being stupid and support all common audio formats, making this message unnecessary. In the meantime, you can use Chrome or Safari to listen to this content.</td></tr>';
 		}
 	}
 		
