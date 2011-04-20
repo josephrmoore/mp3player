@@ -114,8 +114,8 @@ $totalCols = 0;
 				getid3_lib::CopyTagsToComments($ThisFileInfo);
 				echo '<tr data-file="'.$ThisFileInfo['filename'].'">';
 				if($title == 'true'){									
-					if($ThisFileInfo['comments_html']['title']){
-						echo '<td class="title">'.$ThisFileInfo['comments_html']['title'][(count($ThisFileInfo['comments_html']['title'])-1)].'</td>';
+					if($ThisFileInfo['filename']){
+						echo '<td class="title">'.$ThisFileInfo['filename'].'</td>';
 					} else {
 						echo '<td class="title">Unknown Song</td>';
 					}

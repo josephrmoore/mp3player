@@ -40,7 +40,7 @@ table#mp3Player-table {
 }
 
 table#mp3Player-table tr {
-	cursor:pointer
+	cursor:pointer;
 	padding:20px 0;
 }
 	

@@ -1,6 +1,7 @@
 jQuery(document).ready(function($){	
 	// Begin variables
 	
+	// These attributes determine which ID3 tags you include in the player, true for present, false for absent
 	var tags = {
 		artist : true,
 		title : true,
@@ -14,29 +15,11 @@ jQuery(document).ready(function($){
 	var mp3player = $('#mp3Player');
 	var musicFolder = mp3player.attr('data-folder');
 	var url;
-	
-	if(testMp3()){
-		url = 'mp3player/player/php/getmp3s.php?mp3Player-folder=' + musicFolder;
-	} else {
-		url = 'mp3player/player/php/getoggs.php?mp3Player-folder=' + musicFolder;
-	}
-	
-	var tagsUrl = '';
-	
-	for (tag in tags){
-		tagsUrl += '&mp3Player-';
-		tagsUrl += tag;
-		tagsUrl += '=';
-		tagsUrl += tags[tag];
-	}
-
-	url += tagsUrl;
-
 	var playlist;
 	var player;
-	
 	var currentSong = 0;
 	
+	initUrl();
 	
 	// End variables
 	// Begin sorttable code
@@ -656,6 +639,43 @@ jQuery(document).ready(function($){
 			$('#mp3Player-next').removeClass('disabled');	
 		}
 	}
+	
+	function formatTime(s){
+		var h=Math.floor(s/3600);
+		s=s%3600;
+		var m=Math.floor(s/60);
+		s=Math.floor(s%60);
+		// pad the minute and second strings to two digits 
+		if (s.toString().length < 2) s="0"+s;
+		if (m.toString().length < 2) m="0"+m;
+
+		var time = h+":"+m+":"+s;
+		return time;
+	}
+	
+	function testMp3(){
+		var a = document.createElement('audio');
+		return !!(a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
+	}
+	
+	function initUrl(){
+		var tagsUrl = '';
+		
+		if(testMp3()){
+			url = 'mp3player/player/php/getmp3s.php?mp3Player-folder=' + musicFolder;
+		} else {
+			url = 'mp3player/player/php/getoggs.php?mp3Player-folder=' + musicFolder;
+		}
+
+		for (tag in tags){
+			tagsUrl += '&mp3Player-';
+			tagsUrl += tag;
+			tagsUrl += '=';
+			tagsUrl += tags[tag];
+		}
+
+		url += tagsUrl;
+	}
 
 	function init(rows){
 
@@ -772,25 +792,6 @@ jQuery(document).ready(function($){
 			}		
 
 		}, true);
-
-		// format time in seconds to the 0:00:00 format needed to display
-		function formatTime(s){
-			var h=Math.floor(s/3600);
-			s=s%3600;
-			var m=Math.floor(s/60);
-			s=Math.floor(s%60);
-			// pad the minute and second strings to two digits 
-			if (s.toString().length < 2) s="0"+s;
-			if (m.toString().length < 2) m="0"+m;
-
-			var time = h+":"+m+":"+s;
-			return time;
-		}
-	}
-	
-	function testMp3(){
-		var a = document.createElement('audio');
-		return !!(a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
 	}
 	
 	// End functions
