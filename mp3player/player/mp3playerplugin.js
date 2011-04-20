@@ -662,9 +662,9 @@ jQuery(document).ready(function($){
 		var tagsUrl = '';
 		
 		if(testMp3()){
-			url = 'mp3player/player/php/getmp3s.php?mp3Player-folder=' + musicFolder;
+			url = 'mp3player/player/php/getsongs.php?mp3Player-folder=' + musicFolder + '&mp3Player-audioType=mp3';
 		} else {
-			url = 'mp3player/player/php/getoggs.php?mp3Player-folder=' + musicFolder;
+			url = 'mp3player/player/php/getoggs.php?mp3Player-folder=' + musicFolder + '&mp3Player-audioType=ogg';
 		}
 
 		for (tag in tags){
