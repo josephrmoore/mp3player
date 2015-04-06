@@ -13,6 +13,10 @@ $length = $_GET['mp3Player-length'];
 $genre = $_GET['mp3Player-genre'];
 $year = $_GET['mp3Player-year'];
 
+$download = $_GET['mp3Player-flag-download'];
+$singlePageBool = $_GET['mp3Player-flag-singlePage-isSinglePage'];
+$singlePageUrl = $_GET['mp3Player-flag-singlePage-url'];
+
 $totalCols = 0;
 
 ?>
@@ -162,6 +166,12 @@ $totalCols = 0;
 					} else {
 						echo '<td class="year"></td>';
 					}
+				}
+				if($download == 'true'){				
+					echo '<td class="download"><a href="#">Download</a></td>';	
+				}
+				if($singlePageBool == 'true'){				
+					echo '<td class="singlePage"><a href="' . $singlePageUrl . '">Go to the Song Page</a></td>';	
 				}
 				echo '</tr>';
 			}

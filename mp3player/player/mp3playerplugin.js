@@ -12,6 +12,14 @@ jQuery(document).ready(function($){
 		year : false
 	}
 	
+	var flags = {
+		"download" : true,
+		"singlePage" : {
+			"isSinglePage" : true,
+			"url" : "mp3player/player/php/song.php"
+		}
+	}
+	
 	var mp3player = $('#mp3Player');
 	var musicFolder = mp3player.attr('data-folder');
 	var url;
@@ -660,6 +668,7 @@ jQuery(document).ready(function($){
 	
 	function initUrl(){
 		var tagsUrl = '';
+		var flagsUrl = '';
 		
 		if(testMp3()){
 			url = 'mp3player/player/php/getsongs.php?mp3Player-folder=' + musicFolder + '&mp3Player-audioType=mp3';
@@ -675,6 +684,29 @@ jQuery(document).ready(function($){
 		}
 
 		url += tagsUrl;
+		
+		for (flag in flags){
+			console.log(typeof flags[flag]);
+			if(typeof flags[flag] === 'object'){
+				for (subflag in flags[flag]){
+					flagsUrl += '&mp3Player-flag-';
+					flagsUrl += flag;
+					flagsUrl += '-';
+					flagsUrl += subflag;
+					flagsUrl += '=';
+					flagsUrl += flags[flag][subflag];
+				}
+			} else {
+				flagsUrl += '&mp3Player-flag-';
+				flagsUrl += flag;
+				flagsUrl += '=';
+				flagsUrl += flags[flag];				
+			}
+
+		}
+
+		url += flagsUrl;
+		console.log(url);
 	}
 
 	function init(rows){
@@ -699,6 +731,14 @@ jQuery(document).ready(function($){
 					player.loadSong($(this).index());
 				}
 			});
+			if(flags["download"]){
+				console.log($(this).find('.download a'));
+				console.log($(this).attr('data-file'));
+    			$(this).find('.download a').attr('href', musicFolder + "/" + $(this).attr('data-file'));
+			}
+			if(flags["singlePage"]["isSinglePage"]){
+    			$(this).find('.singlePage a').attr('href', flags["singlePage"]["url"] + '?song=' + $(this).attr('data-file') + "&folder=" + musicFolder);
+			}
 		});
 		
 		// create volume slider
@@ -809,5 +849,9 @@ jQuery(document).ready(function($){
 	});
 
 	mp3player.html('<span id="mp3Player-loading">Loading...</span>');
+	
+	function encode(str){
+    	return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(/\*/g, "%2A");
+	}
 
 });
