@@ -2,7 +2,8 @@
 
 require_once('getid3/getid3.php');
 
-$DirectoryToScan = '../../../' . $_GET['mp3Player-folder'];
+$folder = $_GET['mp3Player-folder'];
+$DirectoryToScan = '../../../' . $folder;
 $audioType = $_GET['mp3Player-audioType'];
 
 $artist = $_GET['mp3Player-artist'];
@@ -108,11 +109,12 @@ $totalCols = 0;
 	foreach($files as $file){
 		$pos = strrpos($file, '.') + 1;
 		$ext = strtolower(substr($file, $pos));
-		
+		$file_root = substr($file, 0, count($file)-5);
 		if(($file !="." && $file != "..") && $ext==$audioType){
 			$totalAudio++;
 			$FullFileName = realpath($DirectoryToScan.'/'.$file);
-			
+			$json_str = @file_get_contents('songPages/'.$file_root.'.json');
+			$json = json_decode($json_str, true);
 			if (is_file($FullFileName)) {
 				set_time_limit(30);
 				$ThisFileInfo = $getID3->analyze($FullFileName);
@@ -170,8 +172,8 @@ $totalCols = 0;
 				if($download == 'true'){				
 					echo '<td class="download"><a href="#">Download</a></td>';	
 				}
-				if($singlePageBool == 'true'){				
-					echo '<td class="singlePage"><a href="' . $singlePageUrl . '">Go to the Song Page</a></td>';	
+				if(count($json) > 0){				
+					echo '<td class="singlePage"><a target="_blank" href="#">Go to the Song Page</a></td>';	
 				}
 				echo '</tr>';
 			}

@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^song/(.*)?$ player/php/song.php?song=$1 [L]

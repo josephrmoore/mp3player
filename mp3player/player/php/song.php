@@ -2,15 +2,22 @@
 
 require_once('getid3/getid3.php');
 
+$folder = '../../../' . $_GET['folder'];
 $file = $_GET['song'];
 $filename = explode(".", $file);
 $json = getcwd() . "/songPages/" . $filename[0] . ".json";
 $string = file_get_contents($json);
 $obj = json_decode($string, true);
-$folder = '../../../' . $_GET['folder'];
 
 ?>
 
+<html charset="utf-8">
+<head>
+	<title><?=$obj["title"]?></title>
+	<link rel="stylesheet" href="/<?=$obj["css"]?>" type="text/css" media="all" />
+</head>
+
+<body>
 <h1><?=$obj["title"]?></h1>
 <h2><?=$obj["artist"]?></h2>
 <img src="<?=$obj["image"]?>" alt="Image for <?=$obj["title"]?>" />
@@ -27,3 +34,6 @@ $folder = '../../../' . $_GET['folder'];
 <?php } ?>
 </ul>
 <?php } ?>
+
+</body>
+</html>

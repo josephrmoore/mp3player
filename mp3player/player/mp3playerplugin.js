@@ -577,12 +577,12 @@ jQuery(document).ready(function($){
 			$('.mp3controls').addClass('disabled');
 			var src = musicFolder + '/' + playlist.songs[currentSong].file;
 			$('#mp3Player-mp3').attr('src', src).appendTo(player.object);
+			playlist.rows.removeClass('current');
+			$(playlist.rows[currentSong]).addClass('current');
+			checkFirstLast();
 			this.object[0].load();
 			
 			this.object[0].addEventListener("canplay", function() {
-				playlist.rows.removeClass('current');
-				$(playlist.rows[currentSong]).addClass('current');
-				checkFirstLast();
 				$('#mp3Player-play').removeClass('disabled').addClass('display-off');
 				$('#mp3Player-pause').removeClass('disabled').removeClass('display-off');
 				$('#mp3Player-progress').addClass('loaded');
@@ -737,7 +737,7 @@ jQuery(document).ready(function($){
     			$(this).find('.download a').attr('href', musicFolder + "/" + $(this).attr('data-file'));
 			}
 			if(flags["singlePage"]["isSinglePage"]){
-    			$(this).find('.singlePage a').attr('href', flags["singlePage"]["url"] + '?song=' + $(this).attr('data-file') + "&folder=" + musicFolder);
+    			$(this).find('.singlePage a').attr('href', 'mp3player/song/' + $(this).attr('data-file'));
 			}
 		});
 		
