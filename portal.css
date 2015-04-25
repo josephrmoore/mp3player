@@ -1,0 +1,177 @@
+/* Reset */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td, button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+  outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+  text-decoration: none;
+}
+del {
+  text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+article,aside,canvas,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section,summary, video {
+  display:block;
+}
+
+body {
+	font-family: 'Press Start 2P', cursive;
+	background: #000;
+	color: #007bf9;
+	text-align: center;
+	background: url("wall.jpg") repeat, top, left, transparent;
+	text-align: center;
+}
+
+audio {
+	display:block;
+	margin: 0 auto 40px;
+}
+
+#wrapper {
+	width: 80%;
+	min-width: 800px;
+	background: black;
+	background: rgba(0,0,0,.7);
+	margin: 20px auto;
+	padding: 20px;
+}
+
+a {
+	color:yellow;
+}
+
+.rom {
+	display: block;
+	margin: 20px 0;
+}
+
+
+img {
+	margin: 80px 0;
+}
+
+.img {
+	overflow: hidden;
+}
+
+.text img {
+	max-width:800px;
+	height:auto;
+}
+
+h1 {
+font-size: 36px;
+width: 800px;
+margin: 80px auto 0;
+}
+
+p {
+	font-size: 18px;
+	color: orange;
+	margin: 80px 0;
+}
+
+.text p {
+	font-size: 14px;
+	color: orange;
+	margin: 40px auto;
+	padding: 0 60px;
+	color: white;
+	line-height: 1.3;
+}
+
+header img {
+	width:300px;
+	height: auto;
+}
+
+.blue {
+	color: #007bf9;
+	font-size: 24px;
+}
+
+.orange {
+	color: #ff8300;
+	font-size: 24px;
+}
+
+h2, h3 {
+	color: #fff;
+	margin-bottom: 20px;
+}
+
+ul {
+	margin-bottom: 20px;
+}
+
+li {
+	color:#666;
+}
+
+#mp3Player {
+	width: 800px;
+	margin: 0 auto 40px;
+	border: 2px solid orange!important;
+}
+
+/* Turning off elements */
+
+.off {
+	display:none;
+}
+
+/* Clearing Floats */
+
+.group:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+* html .group             { zoom: 1; } /* IE6 */
+*:first-child+html .group { zoom: 1; } /* IE7 */

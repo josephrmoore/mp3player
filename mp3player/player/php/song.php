@@ -14,10 +14,11 @@ $obj = json_decode($string, true);
 <html charset="utf-8">
 <head>
 	<title><?=$obj["title"]?></title>
-	<link rel="stylesheet" href="/<?=$obj["css"]?>" type="text/css" media="all" />
+	<link rel="stylesheet" href="../../<?=$obj["css"]?>" type="text/css" media="all" />
 </head>
 
 <body>
+	<div id="wrapper">
 <h1><?=$obj["title"]?></h1>
 <h2><?=$obj["artist"]?></h2>
 <img src="<?=$obj["image"]?>" alt="Image for <?=$obj["title"]?>" />
@@ -34,6 +35,6 @@ $obj = json_decode($string, true);
 <?php } ?>
 </ul>
 <?php } ?>
-
+	</div>
 </body>
 </html>

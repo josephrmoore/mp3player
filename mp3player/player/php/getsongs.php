@@ -13,6 +13,7 @@ $track = $_GET['mp3Player-track'];
 $length = $_GET['mp3Player-length'];
 $genre = $_GET['mp3Player-genre'];
 $year = $_GET['mp3Player-year'];
+$comments = $_GET['mp3Player-comments'];
 
 $download = $_GET['mp3Player-flag-download'];
 $singlePageBool = $_GET['mp3Player-flag-singlePage-isSinglePage'];
