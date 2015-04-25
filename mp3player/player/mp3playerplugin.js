@@ -23,7 +23,9 @@ jQuery(document).ready(function($){
 	var playlist;
 	var player;
 	var currentSong = 0;
-	
+	var randomOn = false;
+	var repeatOneOn = false;
+	var repeatAllOn = false;
 	initUrl();
 	
 	// End variables
@@ -562,6 +564,7 @@ jQuery(document).ready(function($){
 	function Player(playlist){
 		console.log('New player created');
 		this.totalSongs = playlist.rows.length;
+		this.randomList = smartRandom(this.totalSongs);
 		this.currentSong = 0;
 		this.object = $('#mp3Player-player');
 		this.played = false;
@@ -595,9 +598,28 @@ jQuery(document).ready(function($){
 			this.object[0].pause();
 		};
 		this.nextSong = function(){
-			if(currentSong != (this.totalSongs - 1)){
-				++currentSong;
+			if(repeatOneOn){
 				this.loadSong(currentSong);
+			} else if(repeatAllOn){
+				if(currentSong != (this.totalSongs - 1)){
+					++currentSong;
+				} else {
+					currentSong = 0;
+				}
+				if(randomOn){
+					this.loadSong(this.randomList[currentSong]);
+				} else {
+					this.loadSong(currentSong);
+				}
+			} else {
+				if(currentSong != (this.totalSongs - 1)){
+					++currentSong;
+				}
+				if(randomOn){
+					this.loadSong(this.randomList[currentSong]);
+				} else {
+					this.loadSong(currentSong);
+				}
 			}
 		};
 		this.prevSong = function(){
@@ -610,6 +632,21 @@ jQuery(document).ready(function($){
 	
 	// End class definitions
 	// Begin functions
+	
+	function smartRandom(playlist_length){
+		arr = new Array(playlist_length);
+//		console.log(arr);
+		for(i=0; i<arr.length; i++){
+			arr[i] = Math.floor(Math.random()*playlist_length);
+			for(j=0; j<i; j++){
+				if(arr[i] == arr[j]){
+					arr[i] = Math.floor(Math.random()*playlist_length);
+					j = -1;
+				}
+			}
+		}
+		return arr;
+	}
 
 	function resetOrder(){
 		var table = playlist.table;
@@ -718,7 +755,8 @@ jQuery(document).ready(function($){
 		var next = $('#mp3Player-next');
 		var play = $('#mp3Player-play');
 		var pause = $('#mp3Player-pause');
-
+		var repeat = $('#mp3Player-repeat');
+		var random = $('#mp3Player-random');		
 		// set clickable on songs
 		rows.each(function(){
 			$(this).click(function(){
@@ -807,6 +845,28 @@ jQuery(document).ready(function($){
 				player.object[0].volume = 1;
 				volumeslider.slider('option', 'value', '1');
 			}
+		});
+		
+		repeat.click(function(){
+			if(repeat.hasClass("mp3Player-repeatOne")){
+				repeat.removeClass("mp3Player-repeatOne");
+				repeatOneOn = false;
+				repeatAllOn = false;
+			} else if (repeat.hasClass("mp3Player-repeatAll")){
+				repeat.removeClass("mp3Player-repeatAll");
+				repeat.addClass("mp3Player-repeatOne");
+				repeatOneOn = true;
+				repeatAllOn = false;
+			} else {
+				repeat.addClass("mp3Player-repeatAll");
+				repeatOneOn = false;
+				repeatAllOn = true;
+			}
+		});
+		
+		random.click(function(){
+			random.toggleClass("mp3Player-random");
+			randomOn = !randomOn;
 		});
 
 		// go to next song on end of song

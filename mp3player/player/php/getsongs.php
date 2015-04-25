@@ -49,6 +49,11 @@ $totalCols = 0;
 		<div id="mp3Player-volume"></div>
 		<span id="mp3Player-max-volume"></span>
 	</div>
+	
+	<div id="mp3Player-playback-options-container" class="mp3Player-group">
+		<button id="mp3Player-repeat" class="mp3controls">Repeat</button>
+		<button id="mp3Player-random" class="mp3controls">Random</button>
+	</div>
 </div>
 
 <table class="sortable" id="mp3Player-table">

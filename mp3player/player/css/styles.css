@@ -241,6 +241,36 @@ span#mp3Player-max-volume.disabled {
 	cursor:default;
 }
 
+/* Playback Options */
+
+button#mp3Player-repeat {
+	background: none;
+	border: none;
+}
+
+button#mp3Player-repeat.mp3Player-repeatAll {
+	border: 1px solid red;
+	border-radius: 3px;	
+}
+
+button#mp3Player-repeat.mp3Player-repeatOne {
+	border: 1px solid yellow;
+	border-radius: 3px;	
+}
+
+button#mp3Player-random {
+	background: none;
+	border: none;	
+}
+
+button#mp3Player-random.mp3Player-random {
+	border: 1px solid white;
+	border-radius: 3px;	
+}
+
+
+
+
 /* Default styling */
 
 table#mp3Player-table .playerControls {
