@@ -102,7 +102,9 @@ $totalCols = 0;
 	</thead>
 	<tbody>
 <?php
-	
+	function writeSongJson($file){
+		
+	}
 	$getID3 = new getID3;
 	
 	$files = scandir($DirectoryToScan);
@@ -111,40 +113,51 @@ $totalCols = 0;
 		$pos = strrpos($file, '.') + 1;
 		$ext = strtolower(substr($file, $pos));
 		$file_root = substr($file, 0, count($file)-5);
+		$json_path = 'json/'.$file_root.'.json';
 		if(($file !="." && $file != "..") && $ext==$audioType){
 			$totalAudio++;
 			$FullFileName = realpath($DirectoryToScan.'/'.$file);
-			$json_str = @file_get_contents('songPages/'.$file_root.'.json');
+			$json_str = @file_get_contents('json/'.$file_root.'.json');
 			$json = json_decode($json_str, true);
 			if (is_file($FullFileName)) {
 				set_time_limit(30);
 				$ThisFileInfo = $getID3->analyze($FullFileName);
 				getid3_lib::CopyTagsToComments($ThisFileInfo);
-				echo '<tr data-file="'.$ThisFileInfo['filename'].'">';
+			    $song_title = "Unknown Song";
+			    if($ThisFileInfo['comments_html']['title']){
+				    $song_title = $ThisFileInfo['comments_html']['title'][(count($ThisFileInfo['comments_html']['title'])-1)];
+			    }
+			    $artist = "Unknown Artist";
+				if($ThisFileInfo['comments_html']['artist']){
+				    $artist = $ThisFileInfo['comments_html']['artist'][(count($ThisFileInfo['comments_html']['artist'])-1)];
+				}
+				$album = "Unknown Album";
+				if($ThisFileInfo['comments_html']['album']){
+					$album = $ThisFileInfo['comments_html']['album'][(count($ThisFileInfo['comments_html']['album'])-1)];
+				}	
+				$all_comments = "";
+				for($i=0;$i<count($ThisFileInfo['comments_html']['comments']);$i++){
+					$all_comments .= $ThisFileInfo['comments_html']['comments'][$i];
+				}
+				$single_page = array("folder"=>$folder, "title"=>$song_title, "artist"=>$artist, "album" =>$album, "comments"=>$all_comments);
+				$json_single_page = json_encode($single_page);
+				$fp = fopen($json_path, 'w');
+				fwrite($fp, $json_single_page);
+				fclose($fp);
+
+				echo '<tr data-file="'.$ThisFileInfo['filename'].'" data-comments="'.$all_comments.'">';
 				if($title == 'true'){
 					if($audioType == "mp3"){
-						if($ThisFileInfo['comments_html']['title']){
-							echo '<td class="title">'.$ThisFileInfo['comments_html']['title'][(count($ThisFileInfo['comments_html']['title'])-1)].'</td>';
-						} else {
-							echo '<td class="title">Unknown Song</td>';
-						}
+						echo '<td class="title">'.$song_title.'</td>';
 					} else {
 						echo '<td class="title">'.$ThisFileInfo['filename'].'</td>';
 					}
 				}
 				if($artist == 'true'){
-					if($ThisFileInfo['comments_html']['artist']){
-						echo '<td class="artist">'.$ThisFileInfo['comments_html']['artist'][(count($ThisFileInfo['comments_html']['artist'])-1)].'</td>';
-					} else {
-						echo '<td class="artist">Unknown Artist</td>';
-					}
+					echo '<td class="artist">'.$artist.'</td>';
 				}
 				if($album == 'true'){	
-					if($ThisFileInfo['comments_html']['album']){
-						echo '<td class="album">'.$ThisFileInfo['comments_html']['album'][(count($ThisFileInfo['comments_html']['album'])-1)].'</td>';
-					} else {
-						echo '<td class="album">Unknown Album</td>';
-					}
+					echo '<td class="album">'.$album.'</td>';
 				}
 				if($length == 'true'){
 					echo '<td class="length">'.$ThisFileInfo['playtime_string'].'</td>';

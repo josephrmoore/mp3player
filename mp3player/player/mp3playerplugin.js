@@ -14,10 +14,7 @@ jQuery(document).ready(function($){
 	
 	var flags = {
 		"download" : true,
-		"singlePage" : {
-			"isSinglePage" : true,
-			"url" : "mp3player/player/php/song.php"
-		}
+		"singlePage" : true
 	}
 	
 	var mp3player = $('#mp3Player');
@@ -736,7 +733,7 @@ jQuery(document).ready(function($){
 				console.log($(this).attr('data-file'));
     			$(this).find('.download a').attr('href', musicFolder + "/" + $(this).attr('data-file'));
 			}
-			if(flags["singlePage"]["isSinglePage"]){
+			if(flags["singlePage"]){
     			$(this).find('.singlePage a').attr('href', 'mp3player/song/' + $(this).attr('data-file'));
 			}
 		});
