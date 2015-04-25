@@ -598,6 +598,7 @@ jQuery(document).ready(function($){
 			this.object[0].pause();
 		};
 		this.nextSong = function(){
+			console.log(this);
 			if(repeatOneOn){
 				this.loadSong(currentSong);
 			} else if(repeatAllOn){
@@ -759,16 +760,19 @@ jQuery(document).ready(function($){
 		var random = $('#mp3Player-random');		
 		// set clickable on songs
 		rows.each(function(){
-			$(this).click(function(){
+			$(this).click(function(e){
+				var target = $(e.target);
 				if(player.disabled == false){
-					player.loadSong($(this).index());
+					if(!target.is("a.single-page-link") && !target.is("a.download-link")){
+						player.loadSong($(this).index());
+					}
 				} else if (player.disabled == true && player.played == false){
-					player.loadSong($(this).index());
+					if(!target.is("a.single-page-link") && !target.is("a.download-link")){
+						player.loadSong($(this).index());
+					}
 				}
 			});
 			if(flags["download"]){
-				console.log($(this).find('.download a'));
-				console.log($(this).attr('data-file'));
     			$(this).find('.download a').attr('href', musicFolder + "/" + $(this).attr('data-file'));
 			}
 			if(flags["singlePage"]){
@@ -906,7 +910,6 @@ jQuery(document).ready(function($){
 	});
 
 	mp3player.html('<span id="mp3Player-loading">Loading...</span>');
-	
 	function encode(str){
     	return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(/\*/g, "%2A");
 	}

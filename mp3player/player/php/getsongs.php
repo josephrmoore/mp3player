@@ -189,10 +189,10 @@ $totalCols = 0;
 					}
 				}
 				if($download == 'true'){				
-					echo '<td class="download"><a href="#">Download</a></td>';	
+					echo '<td class="download"><a class="download-link" target="_blank" href="#">Download</a></td>';	
 				}
 				if(count($json) > 0){				
-					echo '<td class="singlePage"><a target="_blank" href="#">Go to the Song Page</a></td>';	
+					echo '<td class="singlePage"><a class="single-page-link" target="_blank" href="#">Song Page</a></td>';	
 				}
 				echo '</tr>';
 			}
