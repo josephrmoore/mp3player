@@ -1,5 +1,5 @@
 div#mp3Player {
-	min-width:450px;
+	min-width:500px;
 	font-family:Helvetica, Arial, sans-serif;
 }
 
@@ -241,31 +241,39 @@ span#mp3Player-max-volume.disabled {
 	cursor:default;
 }
 
+div#mp3Player-playback-options-container {
+	clear: both;
+	padding-right: 15%;
+}
+
 /* Playback Options */
 
 button#mp3Player-repeat {
-	background: none;
+	width: 25px;
+	height: 22px;
+	background: url(../images/icons.png) no-repeat -160px -23px;
 	border: none;
+	text-indent: -9999px;
 }
 
 button#mp3Player-repeat.mp3Player-repeatAll {
-	border: 1px solid red;
-	border-radius: 3px;	
+	background: url(../images/icons.png) no-repeat -160px 0;
 }
 
 button#mp3Player-repeat.mp3Player-repeatOne {
-	border: 1px solid yellow;
-	border-radius: 3px;	
+	background: url(../images/icons.png) no-repeat -185px 0;
 }
 
 button#mp3Player-random {
-	background: none;
-	border: none;	
+	width: 27px;
+	height: 22px;
+	background: url(../images/icons.png) no-repeat -130px -23px;
+	border: none;
+	text-indent: -9999px;
 }
 
 button#mp3Player-random.mp3Player-random {
-	border: 1px solid white;
-	border-radius: 3px;	
+	background: url(../images/icons.png) no-repeat -130px 0;
 }
 
 
@@ -366,6 +374,8 @@ table#mp3Player-table tr.current {
 .display-off {
 	display:none !important;
 }
+
+button:focus {outline:0;}
 
 .mp3Player-group:after {
   visibility: hidden;

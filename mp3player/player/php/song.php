@@ -44,18 +44,23 @@ if(is_string($image_jpg) || is_string($image_png) || is_string($image_gif)){
 <html charset="utf-8">
 <head>
 	<title><?=$obj["title"]?></title>
+	<link href='http://fonts.googleapis.com/css?family=Oswald|Rokkitt' rel='stylesheet' type='text/css'>
 	<?php if($has_css) { ?>
 	<link rel="stylesheet" href="../player/css/singlepages/<?=$filename[0]?>.css" type="text/css" media="all" />
-	<?php } ?>
+	<?php } else { ?>
+	<link rel="stylesheet" href="../player/css/singlepage.css" type="text/css" media="all" />
+	<?php } ?>	
 </head>
 
 <body>
 	<div id="wrapper">
+		<header>
 		<h1><?=$obj["title"]?></h1>
 		<span>By</span>
 		<h2><?=$obj["artist"]?></h2>
 		<span>From</span>
 		<h3><?=$obj["album"]?></h3>
+		</header>
 		<?php if($has_image) { ?>
 		<img src="../player/images/singlepages/<?=$filename[0].'.'.$image_type?>" alt="Image for <?=$obj["title"]?>" />
 		<?php } ?>

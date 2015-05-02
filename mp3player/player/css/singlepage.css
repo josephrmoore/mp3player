@@ -1,0 +1,52 @@
+body {
+	background: black;
+	color: #fff;
+	font-family: "Rokkitt", "Helvetica", "Arial", sans-serif;
+	padding: 40px;
+}
+
+h1 {
+	font-size: 60px;
+	font-family: "Oswald", "Helvetica", "Arial", sans-serif;
+	margin: 0;
+	padding: 0;
+	color: #dad034;
+}
+
+h2 {
+	font-size: 44px;
+	font-family: "Oswald", "Helvetica", "Arial", sans-serif;
+	padding: 0;
+	margin: 0 0 60px;
+	color: #fffccc;
+}
+
+h3 {
+	font-size: 34px;
+	font-family: "Oswald", "Helvetica", "Arial", sans-serif;
+	padding: 0;
+	margin: 0;
+}
+
+header {
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+audio {
+	display: block;
+	margin: 0 auto;
+	width: 75%;
+}
+
+p {
+	margin: 40px;
+	font-size: 18px;
+	padding: 20px;
+	background: white;
+	color: black;
+}
+
+img {
+	margin-bottom: 20px;
+}

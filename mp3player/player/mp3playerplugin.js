@@ -565,20 +565,26 @@ jQuery(document).ready(function($){
 		console.log('New player created');
 		this.totalSongs = playlist.rows.length;
 		this.randomList = smartRandom(this.totalSongs);
+		console.log(this.randomList);
 		this.currentSong = 0;
 		this.object = $('#mp3Player-player');
 		this.played = false;
 		this.disabled = true;
-		this.loadSong = function(index){
+		this.loadSong = function(index, bypass_random){
+			if(index>=this.totalSongs) {
+				index = this.totalSongs-1;
+			}
+			if(index<0){
+				index = 0;
+			}
+			var song = (randomOn && !bypass_random) ? this.randomList[currentSong] : currentSong
 			$('#mp3Player-progress').removeClass('loaded');
-			
 			this.disabled = true;
-			currentSong = index;
 			$('.mp3controls').addClass('disabled');
-			var src = musicFolder + '/' + playlist.songs[currentSong].file;
+			var src = musicFolder + '/' + playlist.songs[song].file;
 			$('#mp3Player-mp3').attr('src', src).appendTo(player.object);
 			playlist.rows.removeClass('current');
-			$(playlist.rows[currentSong]).addClass('current');
+			$(playlist.rows[song]).addClass('current');
 			checkFirstLast();
 			this.object[0].load();
 			
@@ -593,41 +599,62 @@ jQuery(document).ready(function($){
 		}
 		this.playSong = function(){
 			this.object[0].play();
+			console.log(player);
+			console.log(currentSong);
 		};
 		this.pauseSong = function(){
 			this.object[0].pause();
 		};
-		this.nextSong = function(){
-			console.log(this);
+		this.nextSong = function(bypass){
+			var ended = false;
+			// determine currentSong number
 			if(repeatOneOn){
-				this.loadSong(currentSong);
+				if(bypass){
+					if(currentSong != (this.totalSongs - 1)){
+						++currentSong;
+					} else {
+						ended = true;
+					}
+				}
 			} else if(repeatAllOn){
 				if(currentSong != (this.totalSongs - 1)){
 					++currentSong;
 				} else {
 					currentSong = 0;
-				}
-				if(randomOn){
-					this.loadSong(this.randomList[currentSong]);
-				} else {
-					this.loadSong(currentSong);
+					this.randomList = smartRandom(this.totalSongs);
 				}
 			} else {
 				if(currentSong != (this.totalSongs - 1)){
 					++currentSong;
-				}
-				if(randomOn){
-					this.loadSong(this.randomList[currentSong]);
 				} else {
-					this.loadSong(currentSong);
+					ended = true;
 				}
+			}
+			if(!ended){
+				// load currentSong
+				this.loadSong(currentSong, false);	
 			}
 		};
 		this.prevSong = function(){
+			var ended = false;
+			// determine currentSong number
 			if(currentSong != 0){
 				--currentSong;
-				this.loadSong(currentSong);
+			} else {
+				if(repeatAllOn){
+					currentSong = (this.totalSongs - 1);
+					this.randomList = smartRandom(this.totalSongs);
+				} else {
+					ended = true;
+				}
 			}
+			if(!ended){
+				// load currentSong
+				this.loadSong(currentSong, false);
+			}
+		};
+		this.stop = function(){
+				
 		};
 	}
 	
@@ -680,6 +707,10 @@ jQuery(document).ready(function($){
 		} else {
 			$('#mp3Player-prev').removeClass('disabled');
 			$('#mp3Player-next').removeClass('disabled');	
+		}
+		if(repeatAllOn){
+			$('#mp3Player-prev').removeClass('disabled');
+			$('#mp3Player-next').removeClass('disabled');
 		}
 	}
 	
@@ -764,11 +795,13 @@ jQuery(document).ready(function($){
 				var target = $(e.target);
 				if(player.disabled == false){
 					if(!target.is("a.single-page-link") && !target.is("a.download-link")){
-						player.loadSong($(this).index());
+						currentSong = $(this).index();
+						player.loadSong($(this).index(), true);
 					}
 				} else if (player.disabled == true && player.played == false){
 					if(!target.is("a.single-page-link") && !target.is("a.download-link")){
-						player.loadSong($(this).index());
+						currentSong = $(this).index();
+						player.loadSong($(this).index(), true);
 					}
 				}
 			});
@@ -813,7 +846,7 @@ jQuery(document).ready(function($){
 			}
 			if(player.played == false){
 				player.played = true;
-				player.loadSong(0);
+				player.loadSong(0, false);
 			}
 		});
 
@@ -827,7 +860,7 @@ jQuery(document).ready(function($){
 
 		next.click(function(){
 			if(player.disabled == false){
-				player.nextSong();
+				player.nextSong(true);
 			}
 		});
 
@@ -866,16 +899,18 @@ jQuery(document).ready(function($){
 				repeatOneOn = false;
 				repeatAllOn = true;
 			}
+			checkFirstLast();
 		});
 		
 		random.click(function(){
 			random.toggleClass("mp3Player-random");
 			randomOn = !randomOn;
+			checkFirstLast();
 		});
 
 		// go to next song on end of song
 		player.object[0].addEventListener("ended", function() {										  
-			player.nextSong();
+			player.nextSong(false);
 		}, true);
 
 		// update time/slider
