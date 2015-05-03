@@ -8,6 +8,19 @@ div#mp3Player {
 		margin-left:-3px;
 	}
 
+/* Fixed Height option */
+
+div#mp3Player.fixed {
+	width: 600px;
+	height: 300px;
+}
+
+div#mp3Player.fixed div#mp3Player-fixed-viewport {
+	height: 233px;
+	overflow: scroll;
+}
+
+
 /* Loading screen */
 
 
@@ -37,6 +50,7 @@ table#mp3Player-table {
 	width:100%;
 	border-collapse:collapse;
 	font-size:12px;
+	position: relative;
 }
 
 table#mp3Player-table tr {
@@ -55,6 +69,12 @@ table#mp3Player-table tr th {
 	
 table#mp3Player-table tr td {
 	padding:2px 5px;
+}
+
+table#mp3Player-table tr td.hidden {
+	display: none;
+	visibility: none;
+	position:absolute;
 }
 
 table#mp3Player-table td.title {

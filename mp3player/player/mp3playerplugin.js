@@ -19,6 +19,7 @@ jQuery(document).ready(function($){
 	
 	var mp3player = $('#mp3Player');
 	var musicFolder = mp3player.attr('data-folder');
+	var is_fixed = mp3player.hasClass('fixed');
 	var url;
 	var playlist;
 	var player;
@@ -540,7 +541,7 @@ jQuery(document).ready(function($){
 	function Playlist(table){
 		console.log('New playlist created');
 		this.table = table;
-		this.rows = table.find('tbody tr');
+		this.rows = table.find('tbody tr.song');
 		var songs = [];
 
 		for (i=0;i<this.rows.length;i++){
@@ -565,7 +566,6 @@ jQuery(document).ready(function($){
 		console.log('New player created');
 		this.totalSongs = playlist.rows.length;
 		this.randomList = smartRandom(this.totalSongs);
-		console.log(this.randomList);
 		this.currentSong = 0;
 		this.object = $('#mp3Player-player');
 		this.played = false;
@@ -578,6 +578,9 @@ jQuery(document).ready(function($){
 				index = 0;
 			}
 			var song = (randomOn && !bypass_random) ? this.randomList[currentSong] : currentSong
+			if(is_fixed){
+				$("#mp3Player-fixed-viewport").scrollTop($(playlist.rows[song]).position().top);
+			}
 			$('#mp3Player-progress').removeClass('loaded');
 			this.disabled = true;
 			$('.mp3controls').addClass('disabled');
@@ -599,8 +602,6 @@ jQuery(document).ready(function($){
 		}
 		this.playSong = function(){
 			this.object[0].play();
-			console.log(player);
-			console.log(currentSong);
 		};
 		this.pauseSong = function(){
 			this.object[0].pause();
@@ -634,6 +635,7 @@ jQuery(document).ready(function($){
 				// load currentSong
 				this.loadSong(currentSong, false);	
 			}
+			console.log(currentSong + " " + this.randomList[currentSong]);
 		};
 		this.prevSong = function(){
 			var ended = false;
@@ -663,7 +665,6 @@ jQuery(document).ready(function($){
 	
 	function smartRandom(playlist_length){
 		arr = new Array(playlist_length);
-//		console.log(arr);
 		for(i=0; i<arr.length; i++){
 			arr[i] = Math.floor(Math.random()*playlist_length);
 			for(j=0; j<i; j++){
@@ -752,7 +753,6 @@ jQuery(document).ready(function($){
 		url += tagsUrl;
 		
 		for (flag in flags){
-			console.log(typeof flags[flag]);
 			if(typeof flags[flag] === 'object'){
 				for (subflag in flags[flag]){
 					flagsUrl += '&mp3Player-flag-';
@@ -772,10 +772,26 @@ jQuery(document).ready(function($){
 		}
 
 		url += flagsUrl;
-		console.log(url);
+	}
+	
+	function encode(str){
+    	return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(/\*/g, "%2A");
 	}
 
 	function init(rows){
+		if(is_fixed){
+			var controls = mp3player.find("#mp3Player-controls");
+			var controlsHeight = controls.height() + parseInt(controls.css("padding-top")) + parseInt(controls.css("padding-bottom"));
+			var w = mp3player.attr("data-width");
+			var h = mp3player.attr("data-height");
+			if(w.length > 0){
+				mp3player.css({"width":(w-4) + "px"});
+			}
+			if(h.length > 0 && parseInt(h) > controlsHeight){
+				mp3player.css({"height":(h-4) + "px"});
+				mp3player.find("#mp3Player-fixed-viewport").css({"height": (h - 4 - controlsHeight) + "px"});
+			}
+		}
 
 		var current = $('#mp3Player-currentTime');
 		var remaining = $('#mp3Player-remainingTime');
@@ -909,8 +925,12 @@ jQuery(document).ready(function($){
 		});
 
 		// go to next song on end of song
-		player.object[0].addEventListener("ended", function() {										  
-			player.nextSong(false);
+		player.object[0].addEventListener("ended", function() {	
+			if(repeatOneOn){
+				player.nextSong(true);
+			} else {
+				player.nextSong(false);
+			}								  
 		}, true);
 
 		// update time/slider
@@ -945,8 +965,5 @@ jQuery(document).ready(function($){
 	});
 
 	mp3player.html('<span id="mp3Player-loading">Loading...</span>');
-	function encode(str){
-    	return encodeURIComponent(str).replace(/[!'()]/g, escape).replace(/\*/g, "%2A");
-	}
 
 });

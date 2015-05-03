@@ -55,7 +55,7 @@ $totalCols = 0;
 		<button id="mp3Player-random" class="mp3controls">Random</button>
 	</div>
 </div>
-
+<div id="mp3Player-fixed-viewport">
 <table class="sortable" id="mp3Player-table">
 	<colgroup>
 	<?php if($title == 'true'){ $totalCols++; ?>
@@ -150,7 +150,8 @@ $totalCols = 0;
 				fwrite($fp, $json_single_page);
 				fclose($fp);
 
-				echo '<tr data-file="'.$ThisFileInfo['filename'].'" data-comments="'.$all_comments.'">';
+				echo '<tr class="song" data-file="'.$ThisFileInfo['filename'].'" data-comments="'.$all_comments.'">';
+				echo '<td class="hidden"><a name="'.$ThisFileInfo['filename'].'">anchor</a></td>';
 				if($title == 'true'){
 					if($audioType == "mp3"){
 						echo '<td class="title">'.$song_title.'</td>';
@@ -201,13 +202,10 @@ $totalCols = 0;
 	}
 	
 	if($totalAudio == 0){
-		if($audioType == "mp3"){
-			echo '<tr class="no-mp3s"><td colspan="' . $totalCols . '">Your browser doesn\'t support OGG audio files, and all the songs for this player are OGGs. Perhaps one day browser-makers will stop being stupid and support all common audio formats, making this message unnecessary. In the meantime, you can use Firefox or Opera to listen to this content.</td></tr>';
-		} else {
-			echo '<tr class="no-oggs"><td colspan="' . $totalCols . '">Your browser doesn\'t support MP3 audio files, and all the songs for this player are MP3s. Perhaps one day browser-makers will stop being stupid and support all common audio formats, making this message unnecessary. In the meantime, you can use Chrome or Safari to listen to this content.</td></tr>';
-		}
+		echo '<tr class="no-mp3s"><td colspan="' . $totalCols . '">There is no music in this player and that makes me sad. Please add some songs to the music folder or get rid of me because I serve no purpose whatsoever without music to play :(</td></tr>';
 	}
 		
 ?>
 	</tbody>
 </table>
+</div>

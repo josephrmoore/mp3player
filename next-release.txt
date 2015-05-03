@@ -1,56 +1,12 @@
 v2
 
 need:
-
-repeat functionality
-random functionality
-user prefs in local storage
-fallback for empty folder
-
-flags for:
-
-download links
-random play enabled
-
-
-fix:
-
-loading/preloading jank:
-  highlight what’s loading before it’s loadable
-  preload audio?
-
-possible?:
-
-preload with base64 encoding of audio less than 10MB
-  
-want:
-
-optional image and textblock attached for branding
-
-
-
-
-
-function decodeBase64ToArrayBuffer(base64str) {
-
-    var l = (base64str.length/4) * 3,
-
-        s = atob(base64str),
-
-        a = new ArrayBuffer(l),
-
-        b = new Uint8Array(a),
-
-        i;
-
-    for (i = 0; i &lt l; i++) b[i] = s.charCodeAt(i);
-    return a;
-}
-
-
+  better css for player
+  better css for singlepage
+  rewrite docs
 
 AJAX MP3 Player Plugin
-Version 1.0
+Version 2.0
 By Joseph Moore
 
 This is an AJAX MP3 player that uses PHP to read a folder of files on your server and builds an HTML5 audio player in Javascript. 
