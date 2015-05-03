@@ -55,11 +55,15 @@ if(is_string($image_jpg) || is_string($image_png) || is_string($image_gif)){
 <body>
 	<div id="wrapper">
 		<header>
+		<div class="title-artist-header group">
 		<h1><?=$obj["title"]?></h1>
-		<span>By</span>
+		<span class="by">By</span>
 		<h2><?=$obj["artist"]?></h2>
+		</div>
+		<div class="album-header">
 		<span>From</span>
 		<h3><?=$obj["album"]?></h3>
+		</div>
 		</header>
 		<?php if($has_image) { ?>
 		<img src="../player/images/singlepages/<?=$filename[0].'.'.$image_type?>" alt="Image for <?=$obj["title"]?>" />

@@ -1,28 +1,38 @@
 body {
-	background: black;
-	color: #fff;
 	font-family: "Rokkitt", "Helvetica", "Arial", sans-serif;
-	padding: 40px;
+	margin: 0;
 }
 
 h1 {
-	font-size: 60px;
+	font-size: 40px;
 	font-family: "Oswald", "Helvetica", "Arial", sans-serif;
 	margin: 0;
-	padding: 0;
 	color: #dad034;
+	float: left;
+	padding: 20px 20px 0;
 }
 
 h2 {
-	font-size: 44px;
+	font-size: 32px;
 	font-family: "Oswald", "Helvetica", "Arial", sans-serif;
-	padding: 0;
-	margin: 0 0 60px;
+	margin: 0;
 	color: #fffccc;
+	float: right;
+	padding: 20px 20px 0;
+}
+
+.title-artist-header {
+	position: relative;
+}
+
+.album-header {
+	background: brown;
+	text-align: left;
+	padding: 20px;
 }
 
 h3 {
-	font-size: 34px;
+	font-size: 24px;
 	font-family: "Oswald", "Helvetica", "Arial", sans-serif;
 	padding: 0;
 	margin: 0;
@@ -31,11 +41,13 @@ h3 {
 header {
 	text-align: center;
 	margin-bottom: 40px;
+	background: black;
+	color: white;
 }
 
 audio {
 	display: block;
-	margin: 0 auto;
+	margin: 0 auto 100px;
 	width: 75%;
 }
 
@@ -45,8 +57,31 @@ p {
 	padding: 20px;
 	background: white;
 	color: black;
+	background: #fffccc;
 }
 
 img {
 	margin-bottom: 20px;
+	display: block;
+	margin: 0 auto;
+	max-height: 600px;
 }
+
+.by {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+}
+
+/* Clearing Floats */
+
+.group:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+* html .group             { zoom: 1; } /* IE6 */
+*:first-child+html .group { zoom: 1; } /* IE7 */
